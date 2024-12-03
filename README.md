@@ -8,6 +8,7 @@ Welcome to the Yellow Real Estate Agency website project! This README outlines t
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
+- [File Structure](#file-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -51,6 +52,32 @@ yellow-real-estate/
 │   ├── components/  # React components
 │   ├── pages/       # Page components
 │   ├── styles/      # CSS files
+│   └── App.js       # Main application file
+└── package.json     # Project metadata and dependencies
+```
+
+## File Structure
+```
+yellow-real-estate/
+├── README.md        # Project documentation
+├── LICENSE          # License information
+├── .gitignore       # Files to ignore in Git
+├── public/          # Static files
+│   ├── index.html   # Main HTML file
+│   └── favicon.ico   # Favicon for the website
+├── src/             # Source files
+│   ├── components/  # React components
+│   │   ├── Header.js        # Header component
+│   │   ├── Footer.js        # Footer component
+│   │   └── PropertyCard.js   # Property card component
+│   ├── pages/       # Page components
+│   │   ├── Home.js          # Home page
+│   │   ├── About.js         # About page
+│   │   └── Contact.js       # Contact page
+│   ├── styles/      # CSS files
+│   │   ├── App.css          # Main application styles
+│   │   ├── Header.css       # Header styles
+│   │   └── Footer.css       # Footer styles
 │   └── App.js       # Main application file
 └── package.json     # Project metadata and dependencies
 ```
