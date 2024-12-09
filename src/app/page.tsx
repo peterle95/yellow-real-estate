@@ -40,27 +40,29 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80"
-            alt="Hero Background"
+            src="/pics/Genova.jpeg"
+            alt="Genova Cityscape"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
         
-        <div className="container-custom relative z-10 text-white">
-          <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
-            Find Your Dream Home
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-            Discover the perfect property from our extensive collection of premium listings.
-          </p>
-          <div className="flex gap-4">
-            <a href="/listings" className="btn-primary">
-              Browse Properties
-            </a>
-            <a href="/contact" className="btn-secondary bg-white text-primary-900">
-              Contact Agent
-            </a>
+        <div className="relative z-10 text-white ml-4 sm:ml-8 md:ml-[300px] lg:ml-[500px] xl:ml-[700px] max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="ml-auto max-w-xl">
+            <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
+              Find Your Dream Home
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+              Discover the perfect property from our extensive collection of premium listings.
+            </p>
+            <div className="flex gap-4">
+              <a href="/listings" className="btn-primary">
+                Browse Properties
+              </a>
+              <a href="/contact" className="btn-secondary bg-white text-primary-900">
+                Contact Agent
+              </a>
+            </div>
           </div>
         </div>
       </section>
