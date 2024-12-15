@@ -16,22 +16,30 @@ This project aims to create a modern and responsive website for a real estate bu
 ### Milestone 1: Project Setup
 [x] Initialize the Next.js application with TypeScript.
 [x] Set up Tailwind CSS for styling.
-[] Create a basic folder structure.
+[x] Create a basic folder structure.
 
 ### Milestone 2: Frontend Development with Next.js and TypeScript
-[] Set up routing for different pages (home, listings, property details).
-[] Create reusable components (header, footer, property card).
-[] Implement state management using React Context.
-[] Ensure TypeScript types are defined for props and state management.
-[] Develop the homepage to display featured properties.
-[] Create a property listing page with search functionality.
-[] Implement responsive design using Tailwind CSS.
+[x] Set up routing for different pages (home, listings, property details).
+[x] Create reusable components (header, footer, property card).
+[x] Implement state management using React Context.
+[x] Ensure TypeScript types are defined for props and state management.
+[x] Develop the homepage to display featured properties.
+[x] Create a property listing page with search functionality.
+[x] Implement responsive design using Tailwind CSS.
 
 ### Milestone 3: Styling with Tailwind CSS
-[] Configure Tailwind CSS with Next.js.
+[x] Configure Tailwind CSS with Next.js.
 [] Create a custom theme and extend Tailwind's default configuration.
 [] Utilize utility classes for styling components.
 [] Ensure accessibility and responsiveness across all devices.
+
+### Milestone 5: google ads
+[] Set up google ads
+[] Create a google ads account
+[] Create a google ads campaign
+[] Create a google ads ad group
+[] Create a google ads ad
+[] Create a google ads landing page
 
 ### Milestone 4: Backend Development with Node.js and Express.js
 [] Set up a Node.js server with Express.js.
