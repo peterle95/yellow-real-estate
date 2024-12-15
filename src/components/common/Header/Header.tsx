@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { CircularLogo } from '../CircularLogo';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,8 +11,8 @@ export const Header = () => {
     <header className="bg-white shadow-sm">
       <nav className="container-custom py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-2xl font-heading font-bold text-primary-900">
-            Yellow Estate
+          <Link href="/" className="text-primary-900 hover:text-accent transition-colors">
+            <CircularLogo text="YELLOW ESTATE" size={80} color="currentColor" />
           </Link>
           
           {/* Hamburger Menu Button */}

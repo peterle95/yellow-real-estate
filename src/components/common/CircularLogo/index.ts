@@ -1,0 +1,1 @@
+export { CircularLogo } from './CircularLogo'; 

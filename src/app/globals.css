@@ -35,4 +35,42 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .logo-spin {
+    animation: spin 2s ease-out;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .circular-text {
+    animation: rotate 20s linear infinite;
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+
+  .circular-text svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .circular-text path {
+    fill: currentColor;
+  }
 }
