@@ -56,7 +56,7 @@ export default function Home() {
               Discover the perfect property from our extensive collection of premium listings.
             </p>
             <div className="flex gap-4">
-              <a href="/listings" className="btn-primary">
+              <a href="/properties" className="btn-primary">
                 Browse Properties
               </a>
               <a href="/contact" className="btn-secondary bg-white text-primary-900">
@@ -79,7 +79,7 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <a href="/listings" className="btn-primary">
+            <a href="/properties" className="btn-primary">
               View All Properties
             </a>
           </div>

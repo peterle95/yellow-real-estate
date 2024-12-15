@@ -39,7 +39,7 @@ export const Header = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/listings" className="text-primary-600 hover:text-primary-900">
+            <Link href="/properties" className="text-primary-600 hover:text-primary-900">
               Properties
             </Link>
             <Link href="/about" className="text-primary-600 hover:text-primary-900">
@@ -58,7 +58,7 @@ export const Header = () => {
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} pt-4`}>
           <div className="flex flex-col space-y-4">
             <Link 
-              href="/listings" 
+              href="/properties" 
               className="text-primary-600 hover:text-primary-900 px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
