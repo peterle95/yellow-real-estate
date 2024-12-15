@@ -105,21 +105,21 @@ export const Header = () => {
           <div className="flex flex-col space-y-4">
             <Link 
               href="/properties" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               Properties
             </Link>
             <Link 
               href="/about" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
             <Link 
               href="/contact" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
