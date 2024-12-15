@@ -73,4 +73,47 @@
   .circular-text path {
     fill: currentColor;
   }
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.5s forwards;
+  }
+
+  @keyframes slide-from-left {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-from-right {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-from-left {
+    animation: slide-from-left 0.8s ease-out forwards;
+  }
+
+  .animate-slide-from-right {
+    animation: slide-from-right 0.8s ease-out forwards;
+  }
 }
