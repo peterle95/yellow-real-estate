@@ -37,7 +37,7 @@ const ContactPage = () => {
         message: 'Message sent successfully! We will get back to you soon.',
       });
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch {
       setStatus({
         type: 'error',
         message: 'Failed to send message. Please try again later.',

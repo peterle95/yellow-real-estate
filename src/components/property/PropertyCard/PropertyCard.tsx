@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface PropertyCardProps {
   title: string;
   price: number;
@@ -20,10 +22,11 @@ export const PropertyCard = ({
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
       <div className="relative h-48">
-        <img
+        <Image
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
         />
         <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full">
           ${price.toLocaleString()}
