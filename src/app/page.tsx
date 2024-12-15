@@ -1,4 +1,5 @@
 import { PropertyCard } from '@/components/property/PropertyCard/PropertyCard';
+import Link from 'next/link';
 
 const FEATURED_PROPERTIES = [
   {
@@ -56,12 +57,12 @@ export default function Home() {
               Discover the perfect property from our extensive collection of premium listings.
             </p>
             <div className="flex gap-4">
-              <a href="/properties" className="btn-primary">
+              <Link href="/properties" className="btn-primary">
                 Browse Properties
-              </a>
-              <a href="/contact" className="btn-secondary bg-white text-primary-900">
+              </Link>
+              <Link href="/contact" className="btn-secondary bg-white text-primary-900">
                 Contact Agent
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -79,9 +80,9 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <a href="/properties" className="btn-primary">
+            <Link href="/properties" className="btn-primary">
               View All Properties
-            </a>
+            </Link>
           </div>
         </div>
       </section>
