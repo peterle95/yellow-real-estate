@@ -8,7 +8,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-header shadow-sm">
       <nav className="container-custom py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-primary-900 hover:text-accent transition-colors">
@@ -40,13 +40,13 @@ export const Header = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/properties" className="text-primary-600 hover:text-primary-900">
+            <Link href="/properties" className="text-white hover:text-accent">
               Properties
             </Link>
-            <Link href="/about" className="text-primary-600 hover:text-primary-900">
+            <Link href="/about" className="text-white hover:text-accent">
               About
             </Link>
-            <Link href="/contact" className="text-primary-600 hover:text-primary-900">
+            <Link href="/contact" className="text-white hover:text-accent">
               Contact
             </Link>
             <Link href="/login" className="btn-primary">
@@ -60,21 +60,21 @@ export const Header = () => {
           <div className="flex flex-col space-y-4">
             <Link 
               href="/properties" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               Properties
             </Link>
             <Link 
               href="/about" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
             <Link 
               href="/contact" 
-              className="text-primary-600 hover:text-primary-900 px-2 py-1"
+              className="text-white hover:text-accent px-2 py-1"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact

@@ -26,6 +26,10 @@ const config: Config = {
           DEFAULT: '#f59e0b',
           dark: '#d97706',
         },
+        header: '#865D36',
+        body: '#AC8968',
+        //footer: '#A69080',
+        footer: '#3E362E',
       },
       spacing: {
         '128': '32rem',
