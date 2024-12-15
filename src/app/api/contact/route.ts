@@ -17,18 +17,18 @@ export async function POST(request: Request) {
     // Email content
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: 'yellow-srl@gmail.com',
-      subject: `New Contact Form Submission from ${name}`,
+      to: process.env.GMAIL_USER,
+      subject: `Nuova richiesta di contatto da ${name}`,
       text: `
         Name: ${name}
         Email: ${email}
         Message: ${message}
       `,
       html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
+        <h2>Nuova richiesta di contatto</h2>
+        <p><strong>Nome:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
+        <p><strong>Messaggio:</strong> ${message}</p>
       `,
     };
 
