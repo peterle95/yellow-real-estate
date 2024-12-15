@@ -117,3 +117,7 @@
     animation: slide-from-right 0.8s ease-out forwards;
   }
 }
+
+main {
+  padding-top: 96px; /* Adjust this value based on your header height */
+}

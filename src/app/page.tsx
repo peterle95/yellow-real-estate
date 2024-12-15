@@ -69,7 +69,7 @@ export default function Home() {
       </section>
 
       {/* Featured Properties */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 properties-section">
         <div className="container-custom">
           <h2 className="text-3xl font-heading font-bold text-primary-900 mb-8">
             Featured Properties
