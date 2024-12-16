@@ -79,18 +79,20 @@ interface FilterState {
   baths: number | '';
 }
 
+const PROPERTIES_PER_PAGE = 3;
+
 export default function PropertiesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPrompt, setShowPrompt] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(3);
   const [filters, setFilters] = useState<FilterState>({
-    priceRange: { min: 0, max: 2000000 },
-    sqftRange: { min: 0, max: 5000 },
+    priceRange: { min: 0, max: Number.MAX_SAFE_INTEGER },
+    sqftRange: { min: 0, max: Number.MAX_SAFE_INTEGER },
     beds: '',
     baths: ''
   });
   const [appliedFilters, setAppliedFilters] = useState<FilterState>(filters);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredProperties = FEATURED_PROPERTIES.filter(property => {
     const matchesLocation = property.location.toLowerCase().includes(searchQuery.toLowerCase());
@@ -104,11 +106,11 @@ export default function PropertiesPage() {
     return matchesLocation && matchesPrice && matchesSqft && matchesBeds && matchesBaths;
   });
 
-  const visibleProperties = filteredProperties.slice(0, visibleCount);
-  const hasMoreProperties = visibleCount < filteredProperties.length;
+  const visibleProperties = filteredProperties.slice(0, currentPage * PROPERTIES_PER_PAGE);
+  const hasMoreProperties = visibleProperties.length < filteredProperties.length;
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 3, filteredProperties.length));
+    setCurrentPage(prev => prev + 1);
   };
 
   const handleFilterChange = (
