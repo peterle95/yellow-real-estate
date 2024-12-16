@@ -1,4 +1,7 @@
+"use client";
+
 import { PropertyCard } from '@/components/property/PropertyCard/PropertyCard';
+import { useState } from 'react';
 
 const FEATURED_PROPERTIES = [
   {
@@ -34,17 +37,50 @@ const FEATURED_PROPERTIES = [
 ];
 
 export default function PropertiesPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showPrompt, setShowPrompt] = useState(true);
+
+  const filteredProperties = FEATURED_PROPERTIES.filter(property =>
+    property.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
-          <h2 className="text-3xl font-heading font-bold text-primary-900 mb-8">
-            Properties
-          </h2>
+          <div className="mb-8">
+            <h2 className="text-3xl font-heading font-bold text-primary-900 mb-4">
+              Properties
+            </h2>
+            
+            {/* Search Section */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search by location (e.g., San Francisco, Berkeley)"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowPrompt(false);
+                }}
+                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          {/* Results Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {FEATURED_PROPERTIES.map((property) => (
-              <PropertyCard key={property.id} {...property} />
-            ))}
+            {filteredProperties.length > 0 ? (
+              filteredProperties.map((property) => (
+                <PropertyCard key={property.id} {...property} />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-lg text-primary-600">
+                  No properties found in this location. Try searching for a different area.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>

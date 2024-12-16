@@ -19,6 +19,14 @@ export const PropertyCard = ({
   sqft,
   imageUrl,
 }: PropertyCardProps) => {
+  const formatPrice = (num: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
       <div className="relative h-48">
@@ -29,7 +37,7 @@ export const PropertyCard = ({
           className="object-cover"
         />
         <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full">
-          ${price.toLocaleString()}
+          ${formatPrice(price)}
         </div>
       </div>
       
@@ -49,7 +57,7 @@ export const PropertyCard = ({
             <span>Baths</span>
           </div>
           <div className="flex items-center">
-            <span className="mr-2">{sqft.toLocaleString()}</span>
+            <span className="mr-2">{formatPrice(sqft)}</span>
             <span>sqft</span>
           </div>
         </div>
