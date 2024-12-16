@@ -36,35 +36,213 @@ const FEATURED_PROPERTIES = [
   },
 ];
 
+interface FilterState {
+  priceRange: {
+    min: number;
+    max: number;
+  };
+  sqftRange: {
+    min: number;
+    max: number;
+  };
+  beds: number | '';
+  baths: number | '';
+}
+
+const DEFAULT_FILTERS: FilterState = {
+  priceRange: { min: 0, max: 2000000 },
+  sqftRange: { min: 0, max: 5000 },
+  beds: '',
+  baths: ''
+};
+
 export default function PropertiesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPrompt, setShowPrompt] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState<FilterState>(DEFAULT_FILTERS);
 
-  const filteredProperties = FEATURED_PROPERTIES.filter(property =>
-    property.location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProperties = FEATURED_PROPERTIES.filter(property => {
+    const matchesLocation = property.location.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPrice = property.price >= appliedFilters.priceRange.min && 
+                        property.price <= appliedFilters.priceRange.max;
+    const matchesSqft = property.sqft >= appliedFilters.sqftRange.min && 
+                       property.sqft <= appliedFilters.sqftRange.max;
+    const matchesBeds = appliedFilters.beds === '' || property.beds === appliedFilters.beds;
+    const matchesBaths = appliedFilters.baths === '' || property.baths === appliedFilters.baths;
+
+    return matchesLocation && matchesPrice && matchesSqft && matchesBeds && matchesBaths;
+  });
+
+  const handleFilterChange = (
+    filterType: keyof FilterState,
+    value: number | string,
+    subType?: 'min' | 'max'
+  ) => {
+    setFilters(prev => {
+      if (filterType === 'priceRange' || filterType === 'sqftRange') {
+        return {
+          ...prev,
+          [filterType]: {
+            ...prev[filterType],
+            [subType!]: Number(value)
+          }
+        };
+      }
+      return {
+        ...prev,
+        [filterType]: value === '' ? '' : Number(value)
+      };
+    });
+  };
+
+  const handleApplyFilters = () => {
+    setAppliedFilters(filters);
+    setShowFilters(false);
+  };
+
+  const handleClearFilters = () => {
+    setFilters(DEFAULT_FILTERS);
+    setAppliedFilters(DEFAULT_FILTERS);
+    setSearchQuery('');
+    setShowPrompt(true);
+  };
 
   return (
     <div>
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
           <div className="mb-8">
-            <h2 className="text-3xl font-heading font-bold text-primary-900 mb-4">
-              Properties
-            </h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-3xl font-heading font-bold text-primary-900">
+                Properties
+              </h2>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="btn-secondary"
+                >
+                  {showFilters ? 'Hide Filters' : 'Show Filters'}
+                </button>
+                <button
+                  onClick={handleClearFilters}
+                  className="btn-secondary bg-red-100 hover:bg-red-200 text-red-700"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
             
-            {/* Search Section */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search by location (e.g., San Francisco, Berkeley)"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setShowPrompt(false);
-                }}
-                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
+            {/* Search and Filters Section */}
+            <div className="space-y-4">
+              {/* Location Search */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search by location (e.g., San Francisco, Berkeley)"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowPrompt(false);
+                  }}
+                  className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+              </div>
+
+              {/* Filters Panel */}
+              {showFilters && (
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Price Range */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">Price Range</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          placeholder="Min"
+                          value={filters.priceRange.min}
+                          onChange={(e) => handleFilterChange('priceRange', e.target.value, 'min')}
+                          className="w-full p-2 border border-gray-300 rounded"
+                        />
+                        <input
+                          type="number"
+                          placeholder="Max"
+                          value={filters.priceRange.max}
+                          onChange={(e) => handleFilterChange('priceRange', e.target.value, 'max')}
+                          className="w-full p-2 border border-gray-300 rounded"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Square Footage */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">Square Footage</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          placeholder="Min"
+                          value={filters.sqftRange.min}
+                          onChange={(e) => handleFilterChange('sqftRange', e.target.value, 'min')}
+                          className="w-full p-2 border border-gray-300 rounded"
+                        />
+                        <input
+                          type="number"
+                          placeholder="Max"
+                          value={filters.sqftRange.max}
+                          onChange={(e) => handleFilterChange('sqftRange', e.target.value, 'max')}
+                          className="w-full p-2 border border-gray-300 rounded"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Bedrooms */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">Bedrooms</label>
+                      <select
+                        value={filters.beds}
+                        onChange={(e) => handleFilterChange('beds', e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded"
+                      >
+                        <option value="">Any</option>
+                        {[1, 2, 3, 4, 5].map(num => (
+                          <option key={num} value={num}>{num}+ beds</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Bathrooms */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">Bathrooms</label>
+                      <select
+                        value={filters.baths}
+                        onChange={(e) => handleFilterChange('baths', e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded"
+                      >
+                        <option value="">Any</option>
+                        {[1, 2, 3, 4, 5].map(num => (
+                          <option key={num} value={num}>{num}+ baths</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex justify-end gap-4">
+                    <button
+                      onClick={() => setShowFilters(false)}
+                      className="btn-secondary"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleApplyFilters}
+                      className="btn-primary"
+                    >
+                      Apply Filters
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -77,7 +255,7 @@ export default function PropertiesPage() {
             ) : (
               <div className="col-span-full text-center py-8">
                 <p className="text-lg text-primary-600">
-                  No properties found in this location. Try searching for a different area.
+                  No properties found matching your criteria. Try adjusting your filters.
                 </p>
               </div>
             )}
