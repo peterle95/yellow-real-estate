@@ -212,26 +212,56 @@ const FEATURED_PROPERTIES = [
         baths: 2,
         sqft: 1800,
         imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80'
+    },
+    {
+        id: 4,
+        title: 'Waterfront Penthouse',
+        price: 2499000,
+        location: 'Marina District, San Francisco',
+        beds: 3,
+        baths: 3,
+        sqft: 2200,
+        imageUrl: 'https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&q=80'
+    },
+    {
+        id: 5,
+        title: 'Historic Victorian',
+        price: 1850000,
+        location: 'Pacific Heights, San Francisco',
+        beds: 4,
+        baths: 3,
+        sqft: 3000,
+        imageUrl: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?auto=format&fit=crop&q=80'
+    },
+    {
+        id: 6,
+        title: 'Mountain View Estate',
+        price: 3200000,
+        location: 'Mill Valley, California',
+        beds: 5,
+        baths: 4,
+        sqft: 4500,
+        imageUrl: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80'
     }
 ];
-const DEFAULT_FILTERS = {
-    priceRange: {
-        min: 0,
-        max: 2000000
-    },
-    sqftRange: {
-        min: 0,
-        max: 5000
-    },
-    beds: '',
-    baths: ''
-};
 function PropertiesPage() {
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [showPrompt, setShowPrompt] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [showFilters, setShowFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [filters, setFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(DEFAULT_FILTERS);
-    const [appliedFilters, setAppliedFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(DEFAULT_FILTERS);
+    const [visibleCount, setVisibleCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(3);
+    const [filters, setFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
+        priceRange: {
+            min: 0,
+            max: 2000000
+        },
+        sqftRange: {
+            min: 0,
+            max: 5000
+        },
+        beds: '',
+        baths: ''
+    });
+    const [appliedFilters, setAppliedFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(filters);
     const filteredProperties = FEATURED_PROPERTIES.filter((property)=>{
         const matchesLocation = property.location.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesPrice = property.price >= appliedFilters.priceRange.min && property.price <= appliedFilters.priceRange.max;
@@ -240,6 +270,11 @@ function PropertiesPage() {
         const matchesBaths = appliedFilters.baths === '' || property.baths === appliedFilters.baths;
         return matchesLocation && matchesPrice && matchesSqft && matchesBeds && matchesBaths;
     });
+    const visibleProperties = filteredProperties.slice(0, visibleCount);
+    const hasMoreProperties = visibleCount < filteredProperties.length;
+    const handleLoadMore = ()=>{
+        setVisibleCount((prev)=>Math.min(prev + 3, filteredProperties.length));
+    };
     const handleFilterChange = (filterType, value, subType)=>{
         setFilters((prev)=>{
             if (filterType === 'priceRange' || filterType === 'sqftRange') {
@@ -262,10 +297,20 @@ function PropertiesPage() {
         setShowFilters(false);
     };
     const handleClearFilters = ()=>{
-        setFilters(DEFAULT_FILTERS);
-        setAppliedFilters(DEFAULT_FILTERS);
-        setSearchQuery('');
-        setShowPrompt(true);
+        setFilters({
+            priceRange: {
+                min: 0,
+                max: 2000000
+            },
+            sqftRange: {
+                min: 0,
+                max: 5000
+            },
+            beds: '',
+            baths: ''
+        });
+        setAppliedFilters(filters);
+        setShowFilters(false);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -284,7 +329,7 @@ function PropertiesPage() {
                                         children: "Properties"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/properties/page.tsx",
-                                        lineNumber: 118,
+                                        lineNumber: 158,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -296,7 +341,7 @@ function PropertiesPage() {
                                                 children: showFilters ? 'Hide Filters' : 'Show Filters'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                lineNumber: 122,
+                                                lineNumber: 162,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -305,19 +350,19 @@ function PropertiesPage() {
                                                 children: "Clear Filters"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                lineNumber: 128,
+                                                lineNumber: 168,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/properties/page.tsx",
-                                        lineNumber: 121,
+                                        lineNumber: 161,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/properties/page.tsx",
-                                lineNumber: 117,
+                                lineNumber: 157,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -336,12 +381,12 @@ function PropertiesPage() {
                                             className: "w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/properties/page.tsx",
-                                            lineNumber: 141,
+                                            lineNumber: 181,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/properties/page.tsx",
-                                        lineNumber: 140,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     showFilters && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -358,7 +403,7 @@ function PropertiesPage() {
                                                                 children: "Price Range"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 159,
+                                                                lineNumber: 199,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -372,7 +417,7 @@ function PropertiesPage() {
                                                                         className: "w-full p-2 border border-gray-300 rounded"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 161,
+                                                                        lineNumber: 201,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -383,19 +428,19 @@ function PropertiesPage() {
                                                                         className: "w-full p-2 border border-gray-300 rounded"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 168,
+                                                                        lineNumber: 208,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 160,
+                                                                lineNumber: 200,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 158,
+                                                        lineNumber: 198,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -406,7 +451,7 @@ function PropertiesPage() {
                                                                 children: "Square Footage"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 180,
+                                                                lineNumber: 220,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -420,7 +465,7 @@ function PropertiesPage() {
                                                                         className: "w-full p-2 border border-gray-300 rounded"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 182,
+                                                                        lineNumber: 222,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -431,19 +476,19 @@ function PropertiesPage() {
                                                                         className: "w-full p-2 border border-gray-300 rounded"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 189,
+                                                                        lineNumber: 229,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 221,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 219,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -454,7 +499,7 @@ function PropertiesPage() {
                                                                 children: "Bedrooms"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 201,
+                                                                lineNumber: 241,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -467,7 +512,7 @@ function PropertiesPage() {
                                                                         children: "Any"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 207,
+                                                                        lineNumber: 247,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     [
@@ -484,19 +529,19 @@ function PropertiesPage() {
                                                                             ]
                                                                         }, num, true, {
                                                                             fileName: "[project]/src/app/properties/page.tsx",
-                                                                            lineNumber: 209,
+                                                                            lineNumber: 249,
                                                                             columnNumber: 27
                                                                         }, this))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 202,
+                                                                lineNumber: 242,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 200,
+                                                        lineNumber: 240,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -507,7 +552,7 @@ function PropertiesPage() {
                                                                 children: "Bathrooms"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 216,
+                                                                lineNumber: 256,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -520,7 +565,7 @@ function PropertiesPage() {
                                                                         children: "Any"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                                        lineNumber: 222,
+                                                                        lineNumber: 262,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     [
@@ -537,114 +582,128 @@ function PropertiesPage() {
                                                                             ]
                                                                         }, num, true, {
                                                                             fileName: "[project]/src/app/properties/page.tsx",
-                                                                            lineNumber: 224,
+                                                                            lineNumber: 264,
                                                                             columnNumber: 27
                                                                         }, this))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                                lineNumber: 217,
+                                                                lineNumber: 257,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 215,
+                                                        lineNumber: 255,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                lineNumber: 156,
+                                                lineNumber: 196,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "mt-6 flex justify-end gap-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: ()=>setShowFilters(false),
-                                                        className: "btn-secondary",
-                                                        children: "Cancel"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 231,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        onClick: handleApplyFilters,
-                                                        className: "btn-primary",
-                                                        children: "Apply Filters"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/properties/page.tsx",
-                                                        lineNumber: 237,
-                                                        columnNumber: 21
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
+                                                className: "mt-6 flex justify-end",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: handleApplyFilters,
+                                                    className: "btn-primary",
+                                                    children: "Apply Filters"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/properties/page.tsx",
+                                                    lineNumber: 271,
+                                                    columnNumber: 21
+                                                }, this)
+                                            }, void 0, false, {
                                                 fileName: "[project]/src/app/properties/page.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 270,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/properties/page.tsx",
-                                        lineNumber: 155,
+                                        lineNumber: 195,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/properties/page.tsx",
-                                lineNumber: 138,
+                                lineNumber: 178,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/properties/page.tsx",
-                        lineNumber: 116,
+                        lineNumber: 156,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
-                        children: filteredProperties.length > 0 ? filteredProperties.map((property)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$property$2f$PropertyCard$2f$PropertyCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PropertyCard"], {
-                                ...property
-                            }, property.id, false, {
-                                fileName: "[project]/src/app/properties/page.tsx",
-                                lineNumber: 253,
-                                columnNumber: 17
-                            }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "col-span-full text-center py-8",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-lg text-primary-600",
-                                children: "No properties found matching your criteria. Try adjusting your filters."
+                        className: "space-y-8",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
+                                children: visibleProperties.length > 0 ? visibleProperties.map((property)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$property$2f$PropertyCard$2f$PropertyCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PropertyCard"], {
+                                        ...property
+                                    }, property.id, false, {
+                                        fileName: "[project]/src/app/properties/page.tsx",
+                                        lineNumber: 288,
+                                        columnNumber: 19
+                                    }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "col-span-full text-center py-8",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg text-primary-600",
+                                        children: "No properties found matching your criteria. Try adjusting your filters."
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/properties/page.tsx",
+                                        lineNumber: 292,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/properties/page.tsx",
+                                    lineNumber: 291,
+                                    columnNumber: 17
+                                }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/properties/page.tsx",
-                                lineNumber: 257,
-                                columnNumber: 17
+                                lineNumber: 285,
+                                columnNumber: 13
+                            }, this),
+                            hasMoreProperties && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-center",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleLoadMore,
+                                    className: "btn-secondary",
+                                    children: "Load More Properties"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/properties/page.tsx",
+                                    lineNumber: 301,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/properties/page.tsx",
+                                lineNumber: 300,
+                                columnNumber: 15
                             }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/properties/page.tsx",
-                            lineNumber: 256,
-                            columnNumber: 15
-                        }, this)
-                    }, void 0, false, {
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/app/properties/page.tsx",
-                        lineNumber: 250,
+                        lineNumber: 284,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/properties/page.tsx",
-                lineNumber: 115,
+                lineNumber: 155,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/properties/page.tsx",
-            lineNumber: 114,
+            lineNumber: 154,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/properties/page.tsx",
-        lineNumber: 113,
+        lineNumber: 153,
         columnNumber: 5
     }, this);
 }

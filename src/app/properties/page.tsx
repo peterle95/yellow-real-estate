@@ -34,6 +34,36 @@ const FEATURED_PROPERTIES = [
     sqft: 1800,
     imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80',
   },
+  {
+    id: 4,
+    title: 'Waterfront Penthouse',
+    price: 2499000,
+    location: 'Marina District, San Francisco',
+    beds: 3,
+    baths: 3,
+    sqft: 2200,
+    imageUrl: 'https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&q=80',
+  },
+  {
+    id: 5,
+    title: 'Historic Victorian',
+    price: 1850000,
+    location: 'Pacific Heights, San Francisco',
+    beds: 4,
+    baths: 3,
+    sqft: 3000,
+    imageUrl: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?auto=format&fit=crop&q=80',
+  },
+  {
+    id: 6,
+    title: 'Mountain View Estate',
+    price: 3200000,
+    location: 'Mill Valley, California',
+    beds: 5,
+    baths: 4,
+    sqft: 4500,
+    imageUrl: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80',
+  }
 ];
 
 interface FilterState {
@@ -49,19 +79,18 @@ interface FilterState {
   baths: number | '';
 }
 
-const DEFAULT_FILTERS: FilterState = {
-  priceRange: { min: 0, max: 2000000 },
-  sqftRange: { min: 0, max: 5000 },
-  beds: '',
-  baths: ''
-};
-
 export default function PropertiesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPrompt, setShowPrompt] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
-  const [appliedFilters, setAppliedFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [filters, setFilters] = useState<FilterState>({
+    priceRange: { min: 0, max: 2000000 },
+    sqftRange: { min: 0, max: 5000 },
+    beds: '',
+    baths: ''
+  });
+  const [appliedFilters, setAppliedFilters] = useState<FilterState>(filters);
 
   const filteredProperties = FEATURED_PROPERTIES.filter(property => {
     const matchesLocation = property.location.toLowerCase().includes(searchQuery.toLowerCase());
@@ -74,6 +103,13 @@ export default function PropertiesPage() {
 
     return matchesLocation && matchesPrice && matchesSqft && matchesBeds && matchesBaths;
   });
+
+  const visibleProperties = filteredProperties.slice(0, visibleCount);
+  const hasMoreProperties = visibleCount < filteredProperties.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 3, filteredProperties.length));
+  };
 
   const handleFilterChange = (
     filterType: keyof FilterState,
@@ -103,10 +139,14 @@ export default function PropertiesPage() {
   };
 
   const handleClearFilters = () => {
-    setFilters(DEFAULT_FILTERS);
-    setAppliedFilters(DEFAULT_FILTERS);
-    setSearchQuery('');
-    setShowPrompt(true);
+    setFilters({
+      priceRange: { min: 0, max: 2000000 },
+      sqftRange: { min: 0, max: 5000 },
+      beds: '',
+      baths: ''
+    });
+    setAppliedFilters(filters);
+    setShowFilters(false);
   };
 
   return (
@@ -227,13 +267,7 @@ export default function PropertiesPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 flex justify-end gap-4">
-                    <button
-                      onClick={() => setShowFilters(false)}
-                      className="btn-secondary"
-                    >
-                      Cancel
-                    </button>
+                  <div className="mt-6 flex justify-end">
                     <button
                       onClick={handleApplyFilters}
                       className="btn-primary"
@@ -247,16 +281,29 @@ export default function PropertiesPage() {
           </div>
 
           {/* Results Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProperties.length > 0 ? (
-              filteredProperties.map((property) => (
-                <PropertyCard key={property.id} {...property} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8">
-                <p className="text-lg text-primary-600">
-                  No properties found matching your criteria. Try adjusting your filters.
-                </p>
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleProperties.length > 0 ? (
+                visibleProperties.map((property) => (
+                  <PropertyCard key={property.id} {...property} />
+                ))
+              ) : (
+                <div className="col-span-full text-center py-8">
+                  <p className="text-lg text-primary-600">
+                    No properties found matching your criteria. Try adjusting your filters.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {hasMoreProperties && (
+              <div className="text-center">
+                <button
+                  onClick={handleLoadMore}
+                  className="btn-secondary"
+                >
+                  Load More Properties
+                </button>
               </div>
             )}
           </div>
