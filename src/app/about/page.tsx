@@ -25,25 +25,24 @@ const AboutPage = () => {
           <div className="w-full lg:w-1/2 lg:-ml-16 z-10 animate-slide-from-right">
             <div className="bg-white/90 backdrop-blur-sm p-8 rounded-lg shadow-xl">
               <h1 className="text-4xl lg:text-5xl font-heading font-bold text-primary-900 mb-6">
-                About Yellow Estate
+                Chi siamo:
               </h1>
               <p className="text-lg text-primary-600 mb-6">
-                With over two decades of experience in the real estate market, 
-                Yellow Estate has established itself as a leading force in 
-                property sales and acquisitions. Our commitment to excellence 
-                and customer satisfaction sets us apart in the industry.
+                La nostra agenzia è stata creata per aiutarti a trovare la casa perfetta. Dopo 
+                quattro generazioni, siamo riusciti a creare un'agenzia che si impegna 
+                a fornire un servizio di alta qualità e un'esperienza unica.
               </p>
               <p className="text-lg text-primary-600 mb-8">
-                We believe in creating lasting relationships with our clients, 
-                understanding their needs, and delivering results that exceed 
-                expectations. Our team of experienced professionals is dedicated 
-                to making your real estate journey seamless and successful.
+                Noi crediamo nella creazione di relazioni durature con i nostri clienti, 
+                comprendendo le loro necessità e fornendo risultati che superano le aspettative. 
+                Il nostro team di professionisti esperti è dedicato a rendere il tuo viaggio nel mercato 
+                immobiliare senza imprevisti e riuscito.
               </p>
               <Link 
                 href="/contact" 
                 className="btn-primary inline-block"
               >
-                Get in Touch
+                Contattaci
               </Link>
             </div>
           </div>

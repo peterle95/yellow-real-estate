@@ -44,7 +44,7 @@ const ContactPage = ()=>{
             }
             setStatus({
                 type: 'success',
-                message: 'Message sent successfully! We will get back to you soon.'
+                message: 'Messaggio inviato con successo! Ti risponderemo il prima possibile.'
             });
             setFormData({
                 name: '',
@@ -54,7 +54,7 @@ const ContactPage = ()=>{
         } catch  {
             setStatus({
                 type: 'error',
-                message: 'Failed to send message. Please try again later.'
+                message: 'Impossibile inviare il messaggio. Per favore riprova più tardi.'
             });
         } finally{
             setIsSubmitting(false);
@@ -71,7 +71,7 @@ const ContactPage = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 className: "text-3xl font-heading font-bold mb-6",
-                children: "Contact Us"
+                children: "Contattaci"
             }, void 0, false, {
                 fileName: "[project]/src/app/contact/page.tsx",
                 lineNumber: 59,
@@ -79,7 +79,7 @@ const ContactPage = ()=>{
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "mb-4",
-                children: "We would love to hear from you! Please fill out the form below:"
+                children: "Ci piacerebbe molto sentire il tuo feedback!"
             }, void 0, false, {
                 fileName: "[project]/src/app/contact/page.tsx",
                 lineNumber: 60,
@@ -160,7 +160,7 @@ const ContactPage = ()=>{
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                 htmlFor: "message",
                                 className: "block text-sm font-medium text-gray-700",
-                                children: "Message"
+                                children: "Messaggio"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/contact/page.tsx",
                                 lineNumber: 94,
@@ -188,7 +188,7 @@ const ContactPage = ()=>{
                         type: "submit",
                         disabled: isSubmitting,
                         className: `btn-primary ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`,
-                        children: isSubmitting ? 'Sending...' : 'Send Message'
+                        children: isSubmitting ? 'Invio...' : 'Invia Messaggio'
                     }, void 0, false, {
                         fileName: "[project]/src/app/contact/page.tsx",
                         lineNumber: 104,

@@ -34,13 +34,13 @@ const ContactPage = () => {
 
       setStatus({
         type: 'success',
-        message: 'Message sent successfully! We will get back to you soon.',
+        message: 'Messaggio inviato con successo! Ti risponderemo il prima possibile.',
       });
       setFormData({ name: '', email: '', message: '' });
     } catch {
       setStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again later.',
+        message: 'Impossibile inviare il messaggio. Per favore riprova più tardi.',
       });
     } finally {
       setIsSubmitting(false);
@@ -56,8 +56,8 @@ const ContactPage = () => {
 
   return (
     <div className="container-custom py-16">
-      <h1 className="text-3xl font-heading font-bold mb-6">Contact Us</h1>
-      <p className="mb-4">We would love to hear from you! Please fill out the form below:</p>
+      <h1 className="text-3xl font-heading font-bold mb-6">Contattaci</h1>
+      <p className="mb-4">Ci piacerebbe molto sentire il tuo feedback!</p>
       
       {status.message && (
         <div className={`p-4 rounded-md mb-4 ${
@@ -91,7 +91,7 @@ const ContactPage = () => {
           />
         </div>
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Messaggio</label>
           <textarea
             id="message"
             rows={4}
@@ -106,7 +106,7 @@ const ContactPage = () => {
           disabled={isSubmitting}
           className={`btn-primary ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
+          {isSubmitting ? 'Invio...' : 'Invia Messaggio'}
         </button>
       </form>
     </div>

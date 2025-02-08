@@ -129,25 +129,17 @@ const Header = ()=>{
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const handleScroll = ()=>{
             const currentScrollY = window.scrollY;
-            const propertiesSection = document.querySelector('.properties-section');
-            if (propertiesSection) {
-                const propertiesSectionTop = propertiesSection.getBoundingClientRect().top + window.scrollY;
-                // If we haven't reached the properties section yet
-                if (currentScrollY < propertiesSectionTop) {
-                    // Calculate how much to move the header based on scroll
-                    const scrollDiff = currentScrollY - lastScrollY;
-                    const newTransform = Math.max(-100, Math.min(0, scrollDiff));
-                    setHeaderStyle({
-                        transform: `translateY(${newTransform}px)`,
-                        transition: 'transform 0.3s ease-in-out'
-                    });
-                } else {
-                    // Fix the header at its hidden position when properties section is reached
-                    setHeaderStyle({
-                        transform: 'translateY(-100%)',
-                        transition: 'transform 0.3s ease-in-out'
-                    });
-                }
+            // Simple header hide/show based on scroll direction
+            if (currentScrollY > lastScrollY) {
+                setHeaderStyle({
+                    transform: 'translateY(-100%)',
+                    transition: 'transform 0.3s ease-in-out'
+                });
+            } else {
+                setHeaderStyle({
+                    transform: 'translateY(0)',
+                    transition: 'transform 0.3s ease-in-out'
+                });
             }
             setLastScrollY(currentScrollY);
         };
@@ -173,23 +165,23 @@ const Header = ()=>{
                             href: "/",
                             className: "text-primary-900 hover:text-accent transition-colors",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$CircularLogo$2f$CircularLogo$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CircularLogo"], {
-                                text: "YELLOW ESTATE",
+                                text: "IMMOBILIARE GIALLO",
                                 size: 80,
                                 color: "currentColor"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 60,
+                                lineNumber: 50,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/Header/Header.tsx",
-                            lineNumber: 59,
+                            lineNumber: 49,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             className: "md:hidden p-2 relative w-8 h-8",
                             onClick: ()=>setIsMenuOpen(!isMenuOpen),
-                            "aria-label": "Toggle menu",
+                            "aria-label": "Menu",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute inset-0 flex flex-col justify-center items-center",
                                 children: [
@@ -197,83 +189,65 @@ const Header = ()=>{
                                         className: `w-6 h-0.5 bg-white transition-all duration-300 ease-in-out origin-center ${isMenuOpen ? 'rotate-45 translate-y-[0.35rem]' : ''}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Header/Header.tsx",
-                                        lineNumber: 70,
+                                        lineNumber: 60,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: `w-8 h-0.5 bg-white my-1 transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : ''}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Header/Header.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 65,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: `w-6 h-0.5 bg-white transition-all duration-300 ease-in-out origin-center ${isMenuOpen ? '-rotate-45 -translate-y-[0.35rem]' : ''}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Header/Header.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 70,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 69,
+                                lineNumber: 59,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/Header/Header.tsx",
-                            lineNumber: 64,
+                            lineNumber: 54,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "hidden md:flex items-center space-x-8",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                    href: "/properties",
-                                    className: "text-white hover:text-accent",
-                                    children: "Properties"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/common/Header/Header.tsx",
-                                    lineNumber: 90,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/about",
                                     className: "text-white hover:text-accent",
-                                    children: "About"
+                                    children: "Chi Siamo"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Header/Header.tsx",
-                                    lineNumber: 93,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/contact",
                                     className: "text-white hover:text-accent",
-                                    children: "Contact"
+                                    children: "Contatti"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Header/Header.tsx",
-                                    lineNumber: 96,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                    href: "/login",
-                                    className: "btn-primary",
-                                    children: "Sign In"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/common/Header/Header.tsx",
-                                    lineNumber: 99,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/common/Header/Header.tsx",
-                            lineNumber: 89,
+                            lineNumber: 79,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/common/Header/Header.tsx",
-                    lineNumber: 58,
+                    lineNumber: 48,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -282,65 +256,45 @@ const Header = ()=>{
                         className: "flex flex-col space-y-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/properties",
-                                className: "text-white hover:text-accent px-2 py-1",
-                                onClick: ()=>setIsMenuOpen(false),
-                                children: "Properties"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 108,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: "/about",
                                 className: "text-white hover:text-accent px-2 py-1",
                                 onClick: ()=>setIsMenuOpen(false),
-                                children: "About"
+                                children: "Chi Siamo"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 115,
+                                lineNumber: 92,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: "/contact",
                                 className: "text-white hover:text-accent px-2 py-1",
                                 onClick: ()=>setIsMenuOpen(false),
-                                children: "Contact"
+                                children: "Contatti"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 122,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/login",
-                                className: "btn-primary inline-block text-center",
-                                onClick: ()=>setIsMenuOpen(false),
-                                children: "Sign In"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/common/Header/Header.tsx",
-                                lineNumber: 129,
+                                lineNumber: 99,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Header/Header.tsx",
-                        lineNumber: 107,
+                        lineNumber: 91,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/common/Header/Header.tsx",
-                    lineNumber: 106,
+                    lineNumber: 90,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/common/Header/Header.tsx",
-            lineNumber: 57,
+            lineNumber: 47,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/common/Header/Header.tsx",
-        lineNumber: 53,
+        lineNumber: 43,
         columnNumber: 5
     }, this);
 };
