@@ -20,7 +20,7 @@ export default function Home() {
               La Casa dei Tuoi Sogni Ti Aspetta
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-              Scopri il lusso dell'abitare con i nostri servizi immobiliari premium.
+              Scopri il lusso dell&apos;abitare con i nostri servizi immobiliari premium.
             </p>
             <div className="flex gap-4">
               <Link href="/contact" className="btn-primary">
@@ -76,9 +76,9 @@ export default function Home() {
             Pronto a Trovare la Casa Perfetta?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Lascia che ti aiutiamo a scoprire l'immobile perfetto che si adatta ai tuoi sogni e al tuo stile di vita.
+            Lascia che ti aiutiamo a scoprire l&apos;immobile perfetto che si adatta ai tuoi sogni e al tuo stile di vita.
           </p>
-          <Link href="/contact" className="btn-primary">
+          <Link href="/contact" className="btn-primary">  
             Contattaci Oggi
           </Link>
         </div>

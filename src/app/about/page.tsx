@@ -29,8 +29,8 @@ const AboutPage = () => {
               </h1>
               <p className="text-lg text-primary-600 mb-6">
                 La nostra agenzia è stata creata per aiutarti a trovare la casa perfetta. Dopo 
-                quattro generazioni, siamo riusciti a creare un'agenzia che si impegna 
-                a fornire un servizio di alta qualità e un'esperienza unica.
+                quattro generazioni, siamo riusciti a creare un&apos;agenzia che si impegna 
+                a fornire un servizio di alta qualità e un&apos;esperienza unica.
               </p>
               <p className="text-lg text-primary-600 mb-8">
                 Noi crediamo nella creazione di relazioni durature con i nostri clienti, 
