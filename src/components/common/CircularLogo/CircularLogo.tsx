@@ -3,13 +3,13 @@
 import React from 'react';
 
 interface CircularLogoProps {
-  text: string;
+  text?: string;
   size?: number;
   color?: string;
 }
 
-export const CircularLogo = ({ 
-  text = "YELLOW ESTATE",
+export const CircularLogo = ({
+  text = "Yellow Estate",
   size = 48,
   color = "currentColor"
 }: CircularLogoProps) => {

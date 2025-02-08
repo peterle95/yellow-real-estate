@@ -47,7 +47,7 @@ export const Header = () => {
       <nav className="container-custom py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-primary-900 hover:text-accent transition-colors">
-            <CircularLogo text="IMMOBILIARE GIALLO" size={80} color="currentColor" />
+            <CircularLogo text="Yellow Estate" size={80} color="currentColor" />
           </Link>
           
           {/* Pulsante Menu Mobile */}

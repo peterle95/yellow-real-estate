@@ -11,7 +11,7 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 "use client";
 ;
-const CircularLogo = ({ text = "YELLOW ESTATE", size = 48, color = "currentColor" })=>{
+const CircularLogo = ({ text = "Yellow Estate", size = 48, color = "currentColor" })=>{
     const radius = size / 3;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "circular-text",
@@ -174,7 +174,7 @@ const Header = ()=>{
                             href: "/",
                             className: "text-primary-900 hover:text-accent transition-colors",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$CircularLogo$2f$CircularLogo$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CircularLogo"], {
-                                text: "IMMOBILIARE GIALLO",
+                                text: "Yellow Estate",
                                 size: 80,
                                 color: "currentColor"
                             }, void 0, false, {
