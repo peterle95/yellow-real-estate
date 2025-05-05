@@ -317,7 +317,7 @@ const Footer = ()=>{
                         children: [
                             "© ",
                             new Date().getFullYear(),
-                            " Immobiliare Giallo. Tutti i diritti riservati."
+                            " Yellow. Tutti i diritti riservati."
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Footer/Footer.tsx",

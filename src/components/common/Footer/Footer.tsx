@@ -41,7 +41,7 @@ export const Footer = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-primary-800 text-center text-primary-400">
-          <p>&copy; {new Date().getFullYear()} Immobiliare Giallo. Tutti i diritti riservati.</p>
+          <p>&copy; {new Date().getFullYear()} Yellow. Tutti i diritti riservati.</p>
         </div>
       </div>
     </footer>
